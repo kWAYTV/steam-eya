@@ -37,17 +37,30 @@ class SteamUtils:
     @staticmethod
     def _get_steam_install_path() -> str:
         """Get Steam installation directory"""
-        steam_pid = SteamUtils._get_process_pid("steam.exe")
-        if steam_pid:
-            process = psutil.Process(steam_pid)
-            steam_path = process.exe()
-            SteamUtils._kill_steam_processes()
-            return os.path.dirname(steam_path)
+        try:
+            # Try direct registry key first
+            key = winreg.OpenKey(
+                winreg.HKEY_LOCAL_MACHINE,
+                r"SOFTWARE\WOW6432Node\Valve\Steam",
+                0,
+                winreg.KEY_READ,
+            )
+            install_path, _ = winreg.QueryValueEx(key, "InstallPath")
+            winreg.CloseKey(key)
+            return install_path
+        except WindowsError:
+            # Fall back to existing methods
+            steam_pid = SteamUtils._get_process_pid("steam.exe")
+            if steam_pid:
+                process = psutil.Process(steam_pid)
+                steam_path = process.exe()
+                SteamUtils._kill_steam_processes()
+                return os.path.dirname(steam_path)
 
-        steam_path = SteamUtils._read_registry_value(
-            r"Software\Classes\steam\Shell\Open\Command", ""
-        ).strip('"')
-        return os.path.dirname(steam_path)
+            steam_path = SteamUtils._read_registry_value(
+                r"Software\Classes\steam\Shell\Open\Command", ""
+            ).strip('"')
+            return os.path.dirname(steam_path)
 
     @staticmethod
     def _kill_steam_processes():
