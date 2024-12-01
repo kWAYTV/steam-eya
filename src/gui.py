@@ -27,7 +27,7 @@ class SteamLoginGUI(QWidget):
         logger.info("GUI initialized")
 
     def init_ui(self):
-        self.setWindowTitle(f"Cache Login v{self.version}")
+        self.setWindowTitle(f"steam-eya v{self.version}")
         self.setup_window()
         self.setup_layout()
 
