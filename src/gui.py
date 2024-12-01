@@ -8,6 +8,7 @@ from PyQt5.QtWidgets import (
     QMessageBox,
     QListWidget,
 )
+from loguru import logger
 from .steam_login import SteamLoginManager
 from .steam_utils import SteamUtils, SteamFiles
 from .steam_config import UserCache
@@ -23,6 +24,7 @@ class SteamLoginGUI(QWidget):
         self.selected_account = None
         self.init_ui()
         self.load_accounts()
+        logger.info("GUI initialized")
 
     def init_ui(self):
         self.setWindowTitle(f"Cache Login v{self.version}")
