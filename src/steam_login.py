@@ -1,11 +1,10 @@
-import os
 import vdf
 import winreg
 import subprocess
-from pathlib import Path
+from loguru import logger
 from PyQt5.QtWidgets import QMessageBox
 from .jwt_utils import JWTValidator
-from .steam_utils import SteamUtils, SteamCrypto, SteamFiles, SteamPaths
+from .steam_utils import SteamUtils, SteamCrypto, SteamFiles
 from .steam_config import SteamConfig, UserCache
 
 
@@ -82,7 +81,7 @@ class SteamLoginManager:
             UserCache.save(cache)
 
         except Exception as e:
-            print(f"Cache backup failed: {e}")
+            logger.error(f"Cache backup failed: {e}")
 
     def _get_login_users(self):
         """Get list of Steam login users"""

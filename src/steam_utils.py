@@ -3,15 +3,11 @@ import psutil
 import subprocess
 import winreg
 import stat
-import vdf
-import json
 import zlib
-import base64
 import win32crypt
 import shutil
 import time
 from dataclasses import dataclass
-from typing import Dict, List, Optional
 from pathlib import Path
 
 

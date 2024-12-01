@@ -1,6 +1,7 @@
 import jwt
 import time
 from typing import Dict, Optional
+from loguru import logger
 
 
 class JWTValidator:
@@ -20,14 +21,14 @@ class JWTValidator:
 
             expires_in = decoded_jwt.get("exp", 0) - time.time()
             if expires_in <= 0:
-                print("Token has expired")
+                logger.info("Token has expired")
                 return -1
 
-            print(f"Token expires in {expires_in} seconds")
+            logger.info(f"Token expires in {expires_in} seconds")
             return expires_in
 
         except Exception as e:
-            print(f"Error verifying token: {e}")
+            logger.error(f"Error verifying token: {e}")
             return -1
 
     @staticmethod
@@ -47,5 +48,5 @@ class JWTValidator:
             return jwt.decode(eya, options={"verify_signature": False})
 
         except Exception as e:
-            print(f"Error parsing EYA token: {e}")
+            logger.error(f"Error parsing EYA token: {e}")
             return None

@@ -1,6 +1,5 @@
 from PyQt5.QtGui import QColor, QPalette
 from PyQt5.QtWidgets import (
-    QApplication,
     QWidget,
     QVBoxLayout,
     QLabel,
@@ -26,7 +25,7 @@ class SteamLoginGUI(QWidget):
         self.load_accounts()
 
     def init_ui(self):
-        self.setWindowTitle(f"Wavius Market Cache Login v{self.version}")
+        self.setWindowTitle(f"Cache Login v{self.version}")
         self.setup_window()
         self.setup_layout()
 
@@ -138,7 +137,7 @@ class SteamLoginGUI(QWidget):
         paths = SteamUtils.get_steam_paths()
 
         for path in [paths.install_path / "userdata", paths.config_path]:
-            SteamFiles.remove_directory(path)
+            SteamFiles.remove_directory(path)  ## Deleting user data
 
         if paths.local_vdf_path.exists():
             paths.local_vdf_path.unlink()
