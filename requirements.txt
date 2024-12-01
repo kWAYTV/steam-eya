@@ -3,3 +3,4 @@ PyJWT
 psutil
 pywin32
 vdf
+loguru
