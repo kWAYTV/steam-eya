@@ -163,3 +163,4 @@ cython_debug/
 
 # Ignore pyc files
 *.pyc
+/output
