@@ -1,4 +1,4 @@
-pyinstaller --onefile --noconsole --icon="%~dp0assets\icon.ico" --name CacheLogin main.py
+pyinstaller --onefile --noconsole --icon="%~dp0assets\icon.ico" --name steam-eya main.py
 rmdir /s /q build
 del /f /q CacheLogin.spec
 
